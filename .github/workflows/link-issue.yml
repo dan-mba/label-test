@@ -44,7 +44,7 @@ jobs:
       - name: Add issue-linked label
         if: steps.count_edges.outputs.count > 0
         run: |
-          gh pr edit ${{ github.event.pull_request.number}} --add-label 'issue linked'
+          gh pr edit ${{ github.event.pull_request.number}} --add-label 'issue linked' --repo $GITHUB_REPOSITORY
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
