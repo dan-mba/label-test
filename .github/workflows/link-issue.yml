@@ -38,6 +38,6 @@ jobs:
         env:
           GH_DETAILS: ${{ steps.get_linked_issue.outputs.data }}
         run: |
-          JQ_OUT=$(jq '.repository.pullRequest.closingIssuesReferences.edges[] | length' <<< "$GH_DETAILS")
-          echo "$JQ_OUT"
+          echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.edges[] | length'
+
         
