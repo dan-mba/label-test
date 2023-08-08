@@ -36,5 +36,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - id: count_edges
         run: |
-          echo "${{ steps.get_linked_issue.outputs.data }}" | jq -R 'repository.pullRequest.closingIssuesReferences.edges[] | length' 
+          echo "${{ steps.get_linked_issue.outputs.data }}" | jq -R '.repository.pullRequest.closingIssuesReferences.edges[] | length' 
         
