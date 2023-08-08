@@ -35,7 +35,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - id: count_edges
+        env:
+          GH_DETAILS: ${{ steps.get_linked_issue.outputs.data }}
         run: |
-          JQ_OUT=$(jq '.repository.pullRequest.closingIssuesReferences.edges[] | length' <<< "${{ steps.get_linked_issue.outputs.data }}")
+          JQ_OUT=$(jq '.repository.pullRequest.closingIssuesReferences.edges[] | length' <<< "$GH_DETAILS")
           echo "$JQ_OUT"
         
