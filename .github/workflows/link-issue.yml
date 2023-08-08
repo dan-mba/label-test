@@ -15,7 +15,7 @@ jobs:
         id: get_linked_issue
         with:
           query: |
-            query issue($owner:String!,$repo:String!,$pr:String!) {
+            query issue($owner:String!,$repo:String!,$pr:Int!) {
               repository(owner:$owner,name:$repo) {
                 pullRequest(number: $pr) {
                   closingIssuesReferences (first: 50) {
