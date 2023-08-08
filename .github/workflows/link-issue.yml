@@ -34,10 +34,18 @@ jobs:
             pr: ${{ github.event.pull_request.number}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - id: count_edges
+      - name: Count linked issues
+        id: count_edges
         env:
           GH_DETAILS: ${{ steps.get_linked_issue.outputs.data }}
         run: |
-          echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.edges | length'
+          GH_COUNT=$(echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.edges | length')
+          echo "count=$GH_COUNT" >> "$GITHUB_OUTPUT"
+      - name: Add issue-linked label
+        if: steps.count_edges.outputs.count > 0
+        run: |
+          gh pr edit ${{ github.event.pull_request.number}} --add-label 'issue linked'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         
