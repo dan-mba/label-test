@@ -61,7 +61,7 @@ jobs:
           GH_ASSIGN=$(echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.nodes[0].assignees.nodes[0].assignee')
           echo "name=$GH_ASSIGN" >> "$GITHUB_OUTPUT"
       - name: Add issue-linked label
-        if: steps.count_nodes.outputs.count > 0 && steps.assignee_ct.outputs.count > 0 && ${{ github.actor }} == steps.assignee.outputs.name
+        if: steps.count_nodes.outputs.count > 0 && steps.assignee_ct.outputs.count > 0 && github.actor == steps.assignee.outputs.name
         run: |
           gh pr edit ${{ github.event.pull_request.number}} --add-label 'issue linked' --repo $GITHUB_REPOSITORY
         env:
