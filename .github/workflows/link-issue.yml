@@ -44,6 +44,7 @@ jobs:
         run: |
           GH_COUNT=$(echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.nodes | length')
           echo "count=$GH_COUNT" >> "$GITHUB_OUTPUT"
+          echo "count=$GH_COUNT"
       - name: Check assignee count
         id: assignee_ct
         if: steps.count_nodes.outputs.count > 0
@@ -52,6 +53,7 @@ jobs:
         run: |
           GH_ASSIGNCT=$(echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.nodes[0].assignees.nodes | length')
           echo "count=$GH_ASSIGNCT" >> "$GITHUB_OUTPUT"
+          echo "count=$GH_ASSIGNCT"
       - name: Check assignee
         id: assignee
         if: steps.count_nodes.outputs.count > 0 && steps.assignee_ct.outputs.count > 0
@@ -60,6 +62,8 @@ jobs:
         run: |
           GH_ASSIGN=$(echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.nodes[0].assignees.nodes[0].assignee')
           echo "name=$GH_ASSIGN" >> "$GITHUB_OUTPUT"
+          echo "name=$GH_ASSIGN"
+          echo "${{ github.actor }}"
       - name: Add issue-linked label
         if: steps.count_nodes.outputs.count > 0 && steps.assignee_ct.outputs.count > 0 && github.actor == steps.assignee.outputs.name
         run: |
