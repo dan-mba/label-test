@@ -60,7 +60,7 @@ jobs:
         env:
           GH_DETAILS: ${{ steps.get_linked_issue.outputs.data }}
         run: |
-          GH_ASSIGN=$(echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.nodes[0].assignees.nodes[0].assignee')
+          GH_ASSIGN=$(echo "$GH_DETAILS" | jq '.repository.pullRequest.closingIssuesReferences.nodes[0].assignees.nodes[0].login')
           echo "name=$GH_ASSIGN" >> "$GITHUB_OUTPUT"
           echo "name=$GH_ASSIGN"
           echo "${{ github.actor }}"
